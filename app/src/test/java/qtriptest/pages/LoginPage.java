@@ -18,7 +18,7 @@ public class LoginPage {
     private WebElement passInput;
     @FindBy(xpath = "//button[text()='Login to QTrip']")
     private WebElement loginBtn;
-    @FindBy(xpath = "//li[@class='nav-item auth']")
+    @FindBy(xpath = "//div[@onclick='Logout()']")
     private WebElement logOutBtn;
 
 
@@ -57,14 +57,14 @@ public class LoginPage {
         try {
             logOutBtn.click();
             WebDriverWait wait = new WebDriverWait(driver, 5);
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[text()='Login Here']")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Login Here']")));
 
 
-        return true;
+            return true;
             
         } catch (Exception e) {
             e.printStackTrace();
-            return true;
+            return false;
         }
         
         

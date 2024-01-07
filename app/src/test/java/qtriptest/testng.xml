@@ -5,7 +5,8 @@
    </test>
       <test name = "Parallel Tests">
          <classes>
-            <class name = "qtriptest.testCase_01" />
+            <!-- <class name = "qtriptest.testCase_01" /> -->
+            <class name = "qtriptest.testCase_02" />
          </classes>
    </test>
 </suite>

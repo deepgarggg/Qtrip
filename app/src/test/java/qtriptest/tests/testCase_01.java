@@ -1,6 +1,7 @@
 package qtriptest.tests;
 
 import qtriptest.DP;
+import qtriptest.DriverSingleton;
 import qtriptest.pages.LoginPage;
 import qtriptest.pages.RegisterPage;
 import java.net.MalformedURLException;
@@ -23,27 +24,20 @@ public class testCase_01 {
     @BeforeSuite(alwaysRun = true)
     public static void createDriver() throws MalformedURLException {
         // Launch Browser using Zalenium
-        final DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName(BrowserType.CHROME);
-        driver = new RemoteWebDriver(new URL("http://localhost:8082/wd/hub"), capabilities);
-        System.out.println("createDriver()");
+        driver = DriverSingleton.getWebDriverInstance();
     }
-    @Test(dataProvider = "data-provider", dataProviderClass = DP.class)
+    @Test(dataProvider = "data-provider", dataProviderClass = DP.class, enabled = true, priority = 1,groups = {"Login Flow"})
     // @Parameters({"username" , "password"})
     public void TestCase01(String UserName,String password) throws InterruptedException{
         System.out.println("TestCase01 Start");
         Boolean status;
         System.out.println("User registration start");
-        // username = "Username";
-        // password = "password";
-
         RegisterPage registerPage = new RegisterPage(driver);
         registerPage.navigateToRegisterPage();
         status =registerPage.registorNewuser(UserName, password, true);
         Assertion assertion = new Assertion();
         assertion.assertTrue(status,"new user registration Fail");
-        lastUseUserName= registerPage.lastUseUserName;
-        
+        lastUseUserName= registerPage.lastUseUserName; 
         System.out.println("new user successfully register and now login funtion perform");
         LoginPage loginPage = new LoginPage(driver);
         loginPage.navigateToLoginPage();
